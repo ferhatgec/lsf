@@ -27,13 +27,14 @@ int main(int argc, char** argv) {
 	}
 	std::cout << reg << " " << copy_arg.length() << "\n";
 	if(reg.substr(0, 2) == "--") {
-		if(reg == "--a" || reg ==  "--all") {
+		if(reg == "--a" || reg ==  "--all") { // List all files and folders from current directory with input
 			fsplusplus::List();
-		} else if(reg == "--f" || reg == "--file") {				
+		} else if(reg == "--f" || reg == "--file") { // List only file from current directory with input.				
 			fsplusplus::ListFile();
-		} else if(strstr(reg.c_str(), "--if")) {
-			std::cout << "whoa" << copy_arg;
+		} else if(strstr(reg.c_str(), "--if")) { // List only file with input
 			fsplusplus::ListPath(true, copy_arg); 
+		} else if(strstr(reg.c_str(), "--id")) { // List only directory with input.
+			fsplusplus::ListPath(false, copy_arg); 
 		} else if(reg == "--h" || reg == "--help") {
 			HelpFunction();
 		} else {
