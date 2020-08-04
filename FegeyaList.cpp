@@ -9,7 +9,8 @@
 #include <FileSystemPlusPlus.h>
 
 void HelpFunction() {
-	std::cout << "Fegeya List\nlsf (--a || --all) : Lists current directory\n";
+	std::cout << "Fegeya List\nlsf (--a || --all) : Lists current directory\n" << 
+	"lsf --f || --file : Lists current directory without folders.\n";
 }
 
 int main(int argc, char** argv) {
