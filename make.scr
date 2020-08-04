@@ -1,0 +1,3 @@
+system("g++ FegeyaList.cpp -std=c++17 -o lsf");
+system("./lsf --h");
+return
