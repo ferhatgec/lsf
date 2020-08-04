@@ -15,6 +15,7 @@ void HelpFunction() {
 	"lsf --if <file> : List only file with input\n" <<
 	"lsf --id <file> : List only directory with input\n" <<   
 	"lsf --f || --file : List current directory without folders.\n" <<
+	"lsf --d || --dir : List current directory without files\n" <<
 	"lsf --v || --version : Show version.\n";
 }
 
@@ -43,7 +44,7 @@ int main(int argc, char** argv) {
 		} else if(reg == "--f" || reg == "--file") { // List only file from current directory with input.				
 			fsplusplus::ListFile();
 		} else if(reg == "--d" || reg == "--dir") { // List only directory from current directory with input.				
-			fsplusplus::ListFile();
+			fsplusplus::ListDirectory();
 		} else if(strstr(reg.c_str(), "--if")) { // List only file with input
 			fsplusplus::ListPath(false, true, copy_arg); 
 		} else if(strstr(reg.c_str(), "--id")) { // List only directory with input.
