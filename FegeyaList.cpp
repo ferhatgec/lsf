@@ -20,7 +20,7 @@ int main(int argc, char** argv) {
 				if(arg == "--a" || arg ==  "--all") {
 					fsplusplus::List();
 				} else if(arg == "--f" || arg == "--file") {
-					// List only file.
+					fsplusplus::ListFile();
 				} else if(arg == "--h" || arg == "--help") {
 					HelpFunction();
 				} else {
