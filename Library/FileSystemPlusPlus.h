@@ -319,7 +319,7 @@ namespace fsplusplus {
    	 closedir(directory);	
 	}
 	
-	static void ListPath(std::string path) {
+	static void ListPath(bool file, std::string path) {
 	    DIR *directory;
 	    struct dirent *entryname;
 	    struct stat filestat;
@@ -335,10 +335,13 @@ namespace fsplusplus {
             		// Null
             	} else if(strstr(entryname->d_name, "..")){
 	    		// Null
-	    	} else {  
-            		printf("%4s: %s\n", "[Dir]", entryname->d_name);
+	    	} else {
+			if(file == true) { } else {
+            			printf("%4s: %s\n", "[Dir]", entryname->d_name);
+			}
             	}
-           	} else if(strstr(entryname->d_name, "Elitefile")) {
+           	} else if(file == true) {
+		if(strstr(entryname->d_name, "Elitefile")) {
             		printf("%4s: %s\n", "[Elitebuild]", entryname->d_name);
             	} else if(strstr(entryname->d_name, ".scrift_log")) {
 	    		printf("%4s: %s\n", "FeLog*", entryname->d_name);	
@@ -383,8 +386,9 @@ namespace fsplusplus {
 		} else {
                		printf("%4s: %s\n", "[File]", entryname->d_name);
             	}
-	}
-   	 closedir(directory);				
+		}
+		}
+   		closedir(directory);				
 	}
 
 	static std::string CDFunction(std::string path) {

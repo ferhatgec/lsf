@@ -14,24 +14,31 @@ void HelpFunction() {
 }
 
 int main(int argc, char** argv) {
+	std::string copy_arg, reg;
 	if(argc > 1) {
         	for(int i = 1; i < argc; i++) {
 			std::string arg(argv[i]);
-			if(arg.substr(0, 2) == "--") {
-				if(arg == "--a" || arg ==  "--all") {
-					fsplusplus::List();
-				} else if(arg == "--f" || arg == "--file") {
-					fsplusplus::ListFile();
-				} else if(arg == "--h" || arg == "--help") {
-					HelpFunction();
-				} else {
-					HelpFunction();
-				}
-			} else {
-				fsplusplus::List();
-			}
+			reg = argv[1];
+			copy_arg = arg;
 		}
+	
         } else {
         	fsplusplus::List();
 	}
+	std::cout << reg << " " << copy_arg.length() << "\n";
+	if(reg.substr(0, 2) == "--") {
+		if(reg == "--a" || reg ==  "--all") {
+			fsplusplus::List();
+		} else if(reg == "--f" || reg == "--file") {				
+			fsplusplus::ListFile();
+		} else if(strstr(reg.c_str(), "--if")) {
+			std::cout << "whoa" << copy_arg;
+			fsplusplus::ListPath(true, copy_arg); 
+		} else if(reg == "--h" || reg == "--help") {
+			HelpFunction();
+		} else {
+			HelpFunction();
+		}
+	}
+	return 0;
 }
