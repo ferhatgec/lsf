@@ -256,8 +256,10 @@ namespace fsplusplus {
             		// Null
             	} else if(strstr(entryname->d_name, "..")){
 	    		// Null
-	    	} else {  
+	    	} else {
+			BOLD_RED_COLOR
           		printf("%4s: %s\n", "[Dir]", entryname->d_name);
+			BLACK_COLOR
             	}
             } else {
                // Null
@@ -275,8 +277,7 @@ namespace fsplusplus {
         	printf("Error: Directory not found.\n");
         	return;
     	    }
-            while ((entryname = readdir(directory)))
-    	    {
+            while ((entryname = readdir(directory))) {
         	stat(entryname->d_name, &filestat);
         	if(entryname->d_type == DT_DIR) {// DT_DIR -> directory
             	if(strstr(entryname->d_name, ".")) {

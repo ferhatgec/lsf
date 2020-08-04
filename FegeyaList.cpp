@@ -42,6 +42,8 @@ int main(int argc, char** argv) {
 			fsplusplus::ListPath(true, true, copy_arg);
 		} else if(reg == "--f" || reg == "--file") { // List only file from current directory with input.				
 			fsplusplus::ListFile();
+		} else if(reg == "--d" || reg == "--dir") { // List only directory from current directory with input.				
+			fsplusplus::ListFile();
 		} else if(strstr(reg.c_str(), "--if")) { // List only file with input
 			fsplusplus::ListPath(false, true, copy_arg); 
 		} else if(strstr(reg.c_str(), "--id")) { // List only directory with input.
