@@ -7,10 +7,19 @@
 #include <iostream>
 #include <cstring>
 #include <FileSystemPlusPlus.h>
+#include <FegeyaList.hpp>
 
 void HelpFunction() {
-	std::cout << "Fegeya List\nlsf (--a || --all) : Lists current directory\n" << 
-	"lsf --f || --file : Lists current directory without folders.\n";
+	std::cout << "Fegeya List Arguments\nlsf (--a || --all) : List current directory\n" << 
+	"lsf  --ia <file> : List all files and folders from current directory with input\n" << 
+	"lsf --if <file> : List only file with input\n" <<
+	"lsf --id <file> : List only directory with input\n" <<   
+	"lsf --f || --file : List current directory without folders.\n" <<
+	"lsf --v || --version : Show version.\n";
+}
+
+void VersionFunction() {
+	std::cout << "Fegeya List - " << FEGEYA_LIST_VERSION << "\n";
 }
 
 int main(int argc, char** argv) {
@@ -25,11 +34,11 @@ int main(int argc, char** argv) {
         } else {
         	fsplusplus::List();
 	}
-	std::cout << reg << " " << copy_arg.length() << "\n";
+	
 	if(reg.substr(0, 2) == "--") {
 		if(reg == "--a" || reg ==  "--all") { // List all files and folders from current directory with input
 			fsplusplus::List();
-		} else if(strstr(reg.c_str(), "--ia")) {
+		} else if(strstr(reg.c_str(), "--ia")) { 
 			fsplusplus::ListPath(true, true, copy_arg);
 		} else if(reg == "--f" || reg == "--file") { // List only file from current directory with input.				
 			fsplusplus::ListFile();
@@ -39,6 +48,8 @@ int main(int argc, char** argv) {
 			fsplusplus::ListPath(true, false, copy_arg); 
 		} else if(reg == "--h" || reg == "--help") {
 			HelpFunction();
+		} else if(reg == "--v" || reg == "--version") {
+			VersionFunction();
 		} else {
 			HelpFunction();
 		}

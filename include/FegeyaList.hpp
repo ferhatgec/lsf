@@ -1,0 +1,6 @@
+#ifndef FEGEYA_LIST_HPP
+#define FEGEYA_LIST_HPP
+
+#define FEGEYA_LIST_VERSION "0.2-beta-1"
+
+#endif // FEGEYA_LIST_HPP
