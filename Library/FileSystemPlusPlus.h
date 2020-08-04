@@ -319,7 +319,7 @@ namespace fsplusplus {
    	 closedir(directory);	
 	}
 	
-	static void ListPath(bool file, std::string path) {
+	static void ListPath(bool dir, bool file, std::string path) {
 	    DIR *directory;
 	    struct dirent *entryname;
 	    struct stat filestat;
@@ -331,62 +331,88 @@ namespace fsplusplus {
             while ((entryname = readdir(directory))) {
         	stat(entryname->d_name, &filestat);
         	if(entryname->d_type == DT_DIR) {// DT_DIR -> directory
+		BOLD_RED_COLOR
             	if(strstr(entryname->d_name, ".")) {
             		// Null
             	} else if(strstr(entryname->d_name, "..")){
 	    		// Null
 	    	} else {
-			if(file == true) { } else {
+			if(file == true && dir == false) { } else {
             			printf("%4s: %s\n", "[Dir]", entryname->d_name);
 			}
             	}
-           	} else if(file == true) {
+           	} else if(file == true || dir == true) {
 		if(strstr(entryname->d_name, "Elitefile")) {
-            		printf("%4s: %s\n", "[Elitebuild]", entryname->d_name);
-            	} else if(strstr(entryname->d_name, ".scrift_log")) {
-	    		printf("%4s: %s\n", "FeLog*", entryname->d_name);	
-	    	} else if(strstr(entryname->d_name, ".scrift_ascii")) {
-	    		printf("%4s: %s\n", "Ascii Art*", entryname->d_name);	
-	    	} else if(strstr(entryname->d_name, ".scrift_settings")) {
-	    		printf("%4s: %s\n", "Settings*", entryname->d_name);	
-	    	} else if(strstr(entryname->d_name, ".scrift_history")) {
-	    		printf("%4s: %s\n", "History*", entryname->d_name);	
-	    	} else if(strstr(entryname->d_name, ".scr")) {
-            		printf("%4s: %s\n", "[Scrift]", entryname->d_name);
-            	} else if(strstr(entryname->d_name, ".cpp") || strstr(entryname->d_name, ".hpp") || strstr(entryname->d_name, ".cxx") || strstr(entryname->d_name, ".hxx") || strstr(entryname->d_name, ".cc") || strstr(entryname->d_name, ".hh")) {
-            		printf("%4s: %s\n", "[C++]", entryname->d_name);
-	    	} else if(strstr(entryname->d_name, ".c") || strstr(entryname->d_name, ".h")) {
-            		printf("%4s: %s\n", "[C]", entryname->d_name);		
-	    	} else if(strstr(entryname->d_name, "CMakeLists.txt")) {
-            		printf("%4s: %s\n", "[CMake]", entryname->d_name);	
-	    	} else if(strstr(entryname->d_name, ".sh")) {
-            		printf("%4s: %s\n", "[Bash]", entryname->d_name);
-	    	} else if(strstr(entryname->d_name, ".py")) {
-            		printf("%4s: %s\n", "[Python]", entryname->d_name);
+        	    	BOLD_BLUE_COLOR
+        	    	printf("%4s: %s\n", "[Elitebuild]", entryname->d_name);
+        	} else if(strstr(entryname->d_name, ".scrift_log")) {
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_YELLOW).c_str(), "");
+		    	printf("%4s: %s\n", "FeLog*", entryname->d_name);	
+		} else if(strstr(entryname->d_name, ".scrift_ascii")) {
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_YELLOW).c_str(), "");
+		    	printf("%4s: %s\n", "Ascii Art*", entryname->d_name);	
+		} else if(strstr(entryname->d_name, ".scrift_settings")) {
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_YELLOW).c_str(), "");
+		    	printf("%4s: %s\n", "Settings*", entryname->d_name);	
+		} else if(strstr(entryname->d_name, ".scrift_history")) {
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_YELLOW).c_str(), "");
+		    	printf("%4s: %s\n", "History*", entryname->d_name);	
+		} else if(strstr(entryname->d_name, ".scr")) {
+        	    	BOLD_GREEN_COLOR
+        	    	printf("%4s: %s\n", "[Scrift]", entryname->d_name);
+        	} else if(strstr(entryname->d_name, ".cpp") || strstr(entryname->d_name, ".hpp") || 
+			strstr(entryname->d_name, ".cxx") || strstr(entryname->d_name, ".hxx") || strstr(entryname->d_name, ".cc") 
+			|| strstr(entryname->d_name, ".hh")) {
+		    	BOLD_CYAN_COLOR
+        	    	printf("%4s: %s\n", "[C++]", entryname->d_name);
+		} else if(strstr(entryname->d_name, ".c") || strstr(entryname->d_name, ".h")) {
+		    	BOLD_BLUE_COLOR
+        	    	printf("%4s: %s\n", "[C]", entryname->d_name);		
+		} else if(strstr(entryname->d_name, "CMakeLists.txt")) {
+		    	BOLD_MAGENTA_COLOR
+        	    	printf("%4s: %s\n", "[CMake]", entryname->d_name);	
+		} else if(strstr(entryname->d_name, ".sh")) {
+		    	BOLD_GREEN_COLOR
+        	    	printf("%4s: %s\n", "[Bash]", entryname->d_name);
+		} else if(strstr(entryname->d_name, ".py")) {
+		    	BOLD_BLUE_COLOR
+        	    	printf("%4s: %s\n", "[Python]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".fls") || strstr(entryname->d_name, ".flsh")) {
-		   	printf("%4s: %s\n", "[FlaScript]", entryname->d_name);
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_YELLOW).c_str(), "");
+		    	printf("%4s: %s\n", "[FlaScript]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".md")) {
+		    	BOLD_YELLOW_COLOR
             		printf("%4s: %s\n", "[Markdown]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".frbr")) {
-	    		printf("%4s: %s\n", "[FreeBrain]", entryname->d_name);
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_MAGENTA).c_str(), "");
+		    	printf("%4s: %s\n", "[FreeBrain]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".png")) {
-	    		printf("%4s: %s\n", "[Png]", entryname->d_name);
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_BLUE).c_str(), "");
+		    	printf("%4s: %s\n", "[Png]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".jpg") || strstr(entryname->d_name, ".jpeg")) {
-	    		printf("%4s: %s\n", "[Jpg]", entryname->d_name);
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_BLUE).c_str(), "");
+		    	printf("%4s: %s\n", "[Jpg]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".gif")) {
-	    		printf("%4s: %s\n", "[Gif]", entryname->d_name);
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_BLUE).c_str(), "");
+		    	printf("%4s: %s\n", "[Gif]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".html") || strstr(entryname->d_name, ".htm")) {
-	    		printf("%4s: %s\n", "[Html]", entryname->d_name);
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_RED).c_str(), "");
+		    	printf("%4s: %s\n", "[Html]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".rs") || strstr(entryname->d_name, ".rslib")) {
-	    		printf("%4s: %s\n", "[Rust]", entryname->d_name);
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, YELLOW).c_str(), "");
+		    	printf("%4s: %s\n", "[Rust]", entryname->d_name);
 		} else if(strstr(entryname->d_name, ".lua")) {
-	    		printf("%4s: %s\n", "[Lua]", entryname->d_name);	
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_BLACK).c_str(), "");
+		    	printf("%4s: %s\n", "[Lua]", entryname->d_name);	
 		} else if(strstr(entryname->d_name, ".inclink")) {
-	    		printf("%4s: %s\n", "[includeLink]", entryname->d_name);			
+		    	colorized::PrintWhReset(colorized::Colorize(BOLD, LIGHT_YELLOW).c_str(), "");
+		    	printf("%4s: %s\n", "[includeLink]", entryname->d_name);			
 		} else {
-               		printf("%4s: %s\n", "[File]", entryname->d_name);
-            	}
-		}
+        	    	BOLD_YELLOW_COLOR
+        	    	printf("%4s: %s\n", "[File]", entryname->d_name);
+        	}
+        	BLACK_COLOR // Reset
+         	}
 		}
    		closedir(directory);				
 	}
